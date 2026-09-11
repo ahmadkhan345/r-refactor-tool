@@ -1,0 +1,88 @@
+{
+  "name": "r-refactor",
+  "displayName": "R Refactor",
+  "description": "Automated refactoring for R — powered by tree-sitter. Works in VS Code and Positron.",
+  "version": "0.1.0",
+  "publisher": "your-publisher-id",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0",
+    "positron": "^2025.6.x"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "r",
+    "refactor",
+    "tree-sitter",
+    "positron"
+  ],
+  "activationEvents": [
+    "onLanguage:r"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "rRefactor.renameVariable",
+        "title": "R Refactor: Rename Variable"
+      },
+      {
+        "command": "rRefactor.extractFunction",
+        "title": "R Refactor: Extract Selection into Function"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorLangId == r",
+          "submenu": "rRefactor.submenu",
+          "group": "1_modification"
+        }
+      ],
+      "rRefactor.submenu": [
+        {
+          "command": "rRefactor.renameVariable"
+        },
+        {
+          "command": "rRefactor.extractFunction"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "rRefactor.submenu",
+        "label": "R Refactor"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "publish:ovsx": "ovsx publish",
+    "test": "npm run test:unit",
+    "test:unit": "npm run build && mocha \"dist/test/**/*.test.js\""
+  },
+  "dependencies": {
+    "@davisvaughan/tree-sitter-r": "^1.2.0",
+    "tree-sitter": "^0.21.1",
+    "vscode-test": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.19.37",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^2.0.0",
+    "mocha": "^10.8.2",
+    "ovsx": "^0.9.0",
+    "typescript": "^5.3.0"
+  },
+  "extensionDependencies": [],
+  "__metadata": {}
+}
